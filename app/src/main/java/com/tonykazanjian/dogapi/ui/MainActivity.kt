@@ -1,7 +1,9 @@
-package com.tonykazanjian.dogapi
+package com.tonykazanjian.dogapi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tonykazanjian.dogapi.DogApplication
+import com.tonykazanjian.dogapi.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +22,10 @@ class MainActivity : AppCompatActivity() {
     private fun showWelcomeDialog() {
         val fragmentManager = this.supportFragmentManager
         fragmentManager.beginTransaction()
-            .add(WelcomeDialog.newInstance(), WelcomeDialog.TAG)
+            .add(
+                WelcomeDialog.newInstance(),
+                WelcomeDialog.TAG
+            )
             .commit()
     }
 
