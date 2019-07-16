@@ -9,4 +9,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun onStart() {
+        super.onStart()
+        val fragmentManager = this.supportFragmentManager
+        fragmentManager.beginTransaction()
+            .add(WelcomeDialog.newInstance(), WelcomeDialog.TAG)
+            .commit()
+    }
+
 }
