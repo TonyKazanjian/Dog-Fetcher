@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         appComponent.inject(this)
 
         listViewModel = ViewModelProviders.of(this, viewModeFactory).get(ListViewModel::class.java)
-        listViewModel.getBreeds().observe(this, Observer<List<String>>{ breeds ->
+        listViewModel.getBreeds().observe(this, Observer<String>{ breeds ->
 
-            Log.d("TONY", "did you get the dogs? " + breeds.isNotEmpty())
+            Log.d("TONY", "breeds list: " + breeds)
         })
 
         (application as DogApplication).appComponent.inject(this)

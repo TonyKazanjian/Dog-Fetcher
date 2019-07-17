@@ -15,13 +15,13 @@ import javax.inject.Inject
  */
 class ListViewModel @Inject constructor(val api: Api): BaseViewModel() {
 
-    private val breeds: MutableLiveData<List<String>> by lazy {
-        MutableLiveData<List<String>>().also {
+    private val breeds: MutableLiveData<String> by lazy {
+        MutableLiveData<String>().also {
             loadBreeds()
         }
     }
 
-    fun getBreeds(): LiveData<List<String>> {
+    fun getBreeds(): LiveData<String> {
         return breeds
     }
 
@@ -35,7 +35,7 @@ class ListViewModel @Inject constructor(val api: Api): BaseViewModel() {
 
                 if (response?.isSuccessful == true) {
                     response.body()?.string()?.let{
-                        Log.d("TONY", "breeds response: $it")
+                        breeds.postValue(it)
                     }
                 }
             }
