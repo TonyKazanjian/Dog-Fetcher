@@ -37,9 +37,13 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.11'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
+
     kapt 'com.google.dagger:dagger-compiler:2.11'
-    compileOnly 'javax.annotation:jsr250-Api:1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

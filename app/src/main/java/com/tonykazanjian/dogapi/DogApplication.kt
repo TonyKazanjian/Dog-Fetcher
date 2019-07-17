@@ -10,12 +10,13 @@ import com.tonykazanjian.dogapi.dagger.DaggerAppComponent
  */
 class DogApplication: Application() {
 
-    lateinit var appComponent: AppComponent
+    val appComponent: AppComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+
+    }
     override fun onCreate() {
         super.onCreate()
-        appComponent = initDagger(this)
+        appComponent.inject(this)
     }
 
-    private fun initDagger(app: DogApplication): AppComponent =
-        DaggerAppComponent.builder().appModule(AppModule(app)).build()
 }
