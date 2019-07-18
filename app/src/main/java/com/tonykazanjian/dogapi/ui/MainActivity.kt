@@ -1,20 +1,16 @@
 package com.tonykazanjian.dogapi.ui
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tonykazanjian.dogapi.DogApplication
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.dagger.AppComponent
 import com.tonykazanjian.dogapi.dagger.ViewModelFactory
 import com.tonykazanjian.dogapi.databinding.ActivityMainBinding
-import com.tonykazanjian.dogapi.databinding.BreedItemBinding
-import com.tonykazanjian.dogapi.network.Api
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
 import javax.inject.Inject
 

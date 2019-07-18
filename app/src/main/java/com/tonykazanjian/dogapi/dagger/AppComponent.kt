@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * @author Tony Kazanjian
  */
 @Singleton
-@Component(modules = [AppModule::class, NetworkModule::class, ViewModelModule::class])
+@Component(modules = [AppModule::class, NetworkModule::class, RestApiModule::class, ViewModelModule::class])
 interface AppComponent {
 
     fun inject(application: DogApplication)
