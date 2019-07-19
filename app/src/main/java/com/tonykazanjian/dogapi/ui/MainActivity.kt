@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
         listViewModel = ViewModelProviders.of(this, viewModeFactory).get(ListViewModel::class.java)
         activityMainBinding.viewModel = listViewModel
 
-        listViewModel.getBreeds().observe(this, Observer<String>{ breeds ->
+        listViewModel.getBreedsLiveData().observe(this, Observer<String>{ breeds ->
 
-            Log.d("TONY", "breeds list: " + breeds)
+            Log.d("TONY", "breedsLiveData list: " + breeds)
         })
 
         (application as DogApplication).appComponent.inject(this)

@@ -1,5 +1,6 @@
 package com.tonykazanjian.dogapi.dagger
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tonykazanjian.dogapi.ApiUtils
 import dagger.Module
 import dagger.Provides
@@ -22,6 +23,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .baseUrl(ApiUtils.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 }

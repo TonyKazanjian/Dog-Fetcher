@@ -3,7 +3,9 @@ package com.tonykazanjian.dogapi.network
 import androidx.lifecycle.LiveData
 import com.tonykazanjian.dogapi.ApiUtils
 import com.tonykazanjian.dogapi.data.DataClasses
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -15,5 +17,5 @@ interface DogApi {
 //    fun getDogImages(@Path("breed") breed: String, @Path("sbreed") sbreed: String): Observable<DogImageResponse>
 
     @GET(value = ApiUtils.ALL_BREEDS)
-    fun getAllDogBreeds(): Call<DataClasses.DogApiResponse>
+    fun getAllDogBreeds(): Deferred<Response<DataClasses.DogApiResponse>>
 }
