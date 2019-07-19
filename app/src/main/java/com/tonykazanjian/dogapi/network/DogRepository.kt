@@ -1,5 +1,6 @@
 package com.tonykazanjian.dogapi.network
 
+import com.google.gson.JsonObject
 import com.tonykazanjian.dogapi.data.DataClasses
 
 /**
@@ -7,12 +8,12 @@ import com.tonykazanjian.dogapi.data.DataClasses
  */
 class DogRepository(private val api: DogApi) : BaseRepository() {
 
-    suspend fun getDogList() : MutableList<DataClasses.Breed>? {
+    suspend fun getDogList() : Any? {
         val dogResponse = safeApiCall(
             call = {api.getAllDogBreeds().await()},
             errorMessage = "Error fetching dog breedsLiveData"
         )
 
-        return dogResponse?.results?.toMutableList()
+        return dogResponse?.results
     }
 }
