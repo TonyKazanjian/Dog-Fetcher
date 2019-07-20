@@ -61,6 +61,7 @@ dependencies {
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
 
     kapt 'com.google.dagger:dagger-compiler:2.11'
     testImplementation 'junit:junit:4.12'
