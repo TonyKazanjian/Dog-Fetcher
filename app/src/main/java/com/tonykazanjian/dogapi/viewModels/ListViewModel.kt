@@ -1,10 +1,7 @@
 package com.tonykazanjian.dogapi.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
@@ -12,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -29,22 +25,27 @@ class ListViewModel @Inject constructor(api: DogApi): BaseViewModel() {
 
     private val repository : DogRepository = DogRepository(api)
 
+    private val breedList = mutableListOf<DataClasses.Breed>()
 
-    val breedsLiveData: MutableLiveData<String> by lazy {
-        MutableLiveData<String>().also {
+    private val breedsLiveData: MutableLiveData<List<DataClasses.Breed>> by lazy {
+        MutableLiveData<List<DataClasses.Breed>>().also {
             loadBreeds()
         }
     }
 
-    fun getBreedsLiveData(): LiveData<String> {
+    fun getBreedsLiveData(): LiveData<List<DataClasses.Breed>> {
         return breedsLiveData
     }
 
     private fun loadBreeds() {
         scope.launch {
             val breeds = repository.getDogList()
-            val entrySet = breeds?.entrySet()
-            breedsLiveData.postValue("$entrySet.size")
+            breeds?.entrySet()?.map {
+                val breedName = it.key
+                val subBreedList = mutableListOf(it.value.toString())
+                breedList.add(DataClasses.Breed(breedName, subBreedList))
+            }
+            breedsLiveData.postValue(breedList)
         }
     }
 }
