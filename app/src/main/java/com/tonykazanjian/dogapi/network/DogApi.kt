@@ -7,14 +7,15 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * @author Tony Kazanjian
  */
 interface DogApi {
 
-//    @GET(value = "breed/{breed}/{sbreed}/images")
-//    fun getDogImages(@Path("breed") breed: String, @Path("sbreed") sbreed: String): Observable<DogImageResponse>
+    @GET(value = "${ApiUtils.SINGLE_BREED}/{breed}/${ApiUtils.IMAGES}")
+    fun getDogImages(@Path("breed") breed: String): Deferred<Response<DataClasses.DogApiImageResponse>>
 
     @GET(value = ApiUtils.ALL_BREEDS)
     fun getAllDogBreeds(): Deferred<Response<DataClasses.DogApiResponse>>

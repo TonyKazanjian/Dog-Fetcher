@@ -2,6 +2,8 @@ package com.tonykazanjian.dogapi.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.tonykazanjian.dogapi.viewModels.BaseViewModel
+import com.tonykazanjian.dogapi.viewModels.DetailViewModel
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
 import dagger.Binds
 import dagger.Module
@@ -19,5 +21,10 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ListViewModel::class)
-    abstract fun bindMyViewModel(listViewModel: ListViewModel): ViewModel
+    abstract fun bindListViewModel(listViewModel: ListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel::class)
+    abstract fun bindDetailViewModel(detailViewModel: DetailViewModel): ViewModel
 }

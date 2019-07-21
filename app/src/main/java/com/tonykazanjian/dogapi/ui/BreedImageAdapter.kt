@@ -9,14 +9,12 @@ import androidx.viewpager.widget.PagerAdapter
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.databinding.BreedImageBinding
 
-
-
 /**
  * @author Tony Kazanjian
  */
 class BreedImageAdapter(private val context: Context): PagerAdapter() {
 
-    val imageList = listOf<String>()
+    var imageList = listOf<String>()
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageBinding : BreedImageBinding =
@@ -38,5 +36,10 @@ class BreedImageAdapter(private val context: Context): PagerAdapter() {
 
     override fun getCount(): Int {
         return imageList.size
+    }
+
+    fun setImages(images: List<String>){
+        imageList = images
+        notifyDataSetChanged()
     }
 }

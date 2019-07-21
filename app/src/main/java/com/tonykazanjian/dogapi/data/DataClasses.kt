@@ -2,6 +2,7 @@ package com.tonykazanjian.dogapi.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
@@ -11,6 +12,8 @@ import com.google.gson.annotations.SerializedName
 class DataClasses {
 
     data class DogApiResponse(@SerializedName("message")var result: JsonObject?)
+
+    data class DogApiImageResponse(@SerializedName("message") var result: JsonArray?)
 
     data class Breed(val name: String, val subBreeds: List<String>): Parcelable {
         constructor(parcel: Parcel) : this(
