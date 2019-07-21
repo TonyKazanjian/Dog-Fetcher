@@ -13,7 +13,7 @@ import javax.inject.Singleton
  * @author Tony Kazanjian
  */
 @Module
-class NetworkModule {
+class RetrofitModule {
 
     @Singleton
     @Provides

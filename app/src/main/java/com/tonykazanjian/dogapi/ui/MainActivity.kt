@@ -3,9 +3,13 @@ package com.tonykazanjian.dogapi.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tonykazanjian.dogapi.DogApplication
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.dagger.AppComponent
@@ -28,6 +32,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         val activityMainBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val recyclerView = activityMainBinding.breedRecyclerView
+        val adapter = BreedsListAdapter()
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+
         activityMainBinding.lifecycleOwner = this
 
         listViewModel = ViewModelProviders.of(this, viewModeFactory).get(ListViewModel::class.java)
@@ -35,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         listViewModel.getBreedsLiveData().observe(this, Observer<List<DataClasses.Breed>>{ breeds ->
 
-            Log.d("TONY", "breedsLiveData list: " + breeds)
+            breeds?.let { adapter.setBreeds(it) }
         })
 
         (application as DogApplication).appComponent.inject(this)
