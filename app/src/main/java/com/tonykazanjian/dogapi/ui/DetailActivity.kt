@@ -1,13 +1,11 @@
 package com.tonykazanjian.dogapi.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.databinding.ActivityDetailBinding
-import com.tonykazanjian.dogapi.viewModels.BaseViewModel
 import com.tonykazanjian.dogapi.viewModels.DetailViewModel
 
 /**
@@ -21,11 +19,11 @@ class DetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
 
-        var detailActivityDetailBinding : ActivityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+        val detailActivityDetailBinding : ActivityDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
 
         var recyclerView = detailActivityDetailBinding.subBreedRecyclerView
-        var viewPager = detailActivityDetailBinding.viewPager
-        var breedAdapter = BreedImageAdapter(this)
+        val viewPager = detailActivityDetailBinding.viewPager
+        val breedAdapter = BreedImageAdapter(this)
         viewPager.adapter = breedAdapter
 
         detailViewModel = ViewModelProviders.of(this, viewModeFactory).get(DetailViewModel::class.java)

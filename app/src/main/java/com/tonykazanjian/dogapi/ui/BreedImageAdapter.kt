@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.PagerAdapter
+import com.squareup.picasso.Picasso
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.databinding.BreedImageBinding
 
@@ -20,14 +21,13 @@ class BreedImageAdapter(private val context: Context): PagerAdapter() {
         val imageBinding : BreedImageBinding =
             DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.breed_image, container, false)
         val imageView = imageBinding.image
-        //TODO - picasso sets imageURL to imageview here
-
+        Picasso.get().load(imageList[position]).into(imageView)
         container.addView(imageBinding.root)
         return imageBinding.root
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeViewAt(position)
+        container.removeView(`object` as View)
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
