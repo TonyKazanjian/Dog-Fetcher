@@ -1,6 +1,7 @@
 package com.tonykazanjian.dogapi.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tonykazanjian.dogapi.DogApplication
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.dagger.AppComponent
@@ -20,7 +22,7 @@ import javax.inject.Inject
 /**
  * @author Tony Kazanjian
  */
-class BreedDetailFragment: Fragment() {
+class BreedDetailFragment: Fragment(), BaseListAdapter.OnBreedClickListener {
 
     @Inject
     protected lateinit var viewModeFactory: ViewModelFactory
@@ -52,21 +54,39 @@ class BreedDetailFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val fragmentDetailBinding: FragmentDetailBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        val recyclerView = fragmentDetailBinding.subBreedRecyclerView
+        val subBreedAdapter = SubBreedAdapter(this)
 
-        var recyclerView = fragmentDetailBinding.subBreedRecyclerView
+        recyclerView.adapter = subBreedAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
         val viewPager = fragmentDetailBinding.viewPager
-        val breedAdapter = BreedImageAdapter(context)
-        viewPager.adapter = breedAdapter
+        val imageAdapter = BreedImageAdapter(context)
+        viewPager.adapter = imageAdapter
 
+        initViewModel(fragmentDetailBinding, imageAdapter)
+        setBreedInfoToAdapter(subBreedAdapter)
+        return fragmentDetailBinding.root
+    }
+
+    private fun initViewModel(fragmentDetailBinding: FragmentDetailBinding, adapter: BreedImageAdapter) {
         detailViewModel = ViewModelProviders.of(this, viewModeFactory).get(DetailViewModel::class.java)
         fragmentDetailBinding.viewModel = detailViewModel
-        detailViewModel.breed = getBreedFromArgs()
+
         detailViewModel.getImageUrlLiveData().observe(this, Observer<List<String>>{ images ->
             images?.let {
-                breedAdapter.setImages(it)
+                adapter.setImages(it)
             }
         })
-        return fragmentDetailBinding.root
+    }
+
+    private fun setBreedInfoToAdapter(subBreedAdapter: SubBreedAdapter) {
+        detailViewModel.breed = getBreedFromArgs()
+        subBreedAdapter.setItems(detailViewModel.breed.subBreeds)
+    }
+
+    override fun onBreedClicked(item: Any?) {
+        Log.d("TONY", "clicked")
     }
 
 

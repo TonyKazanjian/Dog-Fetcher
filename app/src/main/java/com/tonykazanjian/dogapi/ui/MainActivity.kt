@@ -64,5 +64,6 @@ class MainActivity : BaseActivity(), BaseListAdapter.OnBreedClickListener {
         val ft = fragmentManager.beginTransaction()
         ft.add(activityMainBinding.root.id, fragment, BreedDetailFragment.TAG)
         ft.addToBackStack(BreedDetailFragment.TAG)
-        ft.commit()    }
+        ft.commit()
+    }
 }

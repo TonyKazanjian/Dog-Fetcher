@@ -36,6 +36,9 @@ class DetailViewModel @Inject constructor(api: DogApi, private val context: Cont
     }
 
     fun subBreedListTitle(): String {
+        if (breed.subBreeds.isEmpty()){
+            return context.getString(R.string.noSubBreedText, breed.name)
+        }
         return context.getString(R.string.subBreedText, breed.name)
     }
 

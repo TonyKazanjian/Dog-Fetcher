@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tonykazanjian.dogapi.R
-import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.databinding.BreedItemBinding
 import com.tonykazanjian.dogapi.viewModels.BaseViewModel
-import com.tonykazanjian.dogapi.viewModels.ItemViewModel
 
 /**
  * @author Tony Kazanjian
@@ -49,11 +47,11 @@ open class BaseListAdapter<T> (open var clickListener: OnBreedClickListener? = n
     open class ViewHolder<T>(open val binding: BreedItemBinding, open val clickListener: OnBreedClickListener?) : RecyclerView.ViewHolder(binding.root) {
 
         open fun bind(item: T) {
-            val itemViewModel = baseViewModel(item)
+            val itemViewModel = createViewModel(item)
             binding.viewModel = itemViewModel
             itemView.setOnClickListener{ clickListener?.onBreedClicked(item)}
         }
 
-        open fun baseViewModel(item: T) = BaseViewModel(item)
+        open fun createViewModel(item: T) = BaseViewModel(item)
     }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DogAPI</string>
     <string name="subBreedText">The sub breeds of %1$s are: </string>
+    <string name="noSubBreedText">There are no sub breeds of %1$s.</string>
 </resources>
