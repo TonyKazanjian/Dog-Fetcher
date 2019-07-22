@@ -36,9 +36,9 @@ class BreedDetailFragment: BaseFragment(), BaseListAdapter.OnBreedClickListener 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
 
-        initSubBreedRecyclerView()
         val imageAdapter = initViewPager()
         initViewModel(binding, imageAdapter)
+        initSubBreedRecyclerView()
 
         return binding.root
     }

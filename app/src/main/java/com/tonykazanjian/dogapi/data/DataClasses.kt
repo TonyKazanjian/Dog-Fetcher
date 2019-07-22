@@ -11,6 +11,8 @@ import com.google.gson.annotations.SerializedName
  */
 class DataClasses {
 
+    data class DataState(var isFailed: Boolean)
+
     data class DogApiResponse(@SerializedName("message")var result: JsonObject?)
 
     data class DogApiImageResponse(@SerializedName("message") var result: JsonArray?)

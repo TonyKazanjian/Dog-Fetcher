@@ -55,10 +55,14 @@ class MainActivity : BaseActivity(), BaseListAdapter.OnBreedClickListener {
 
         listViewModel.getBreedsLiveData().observe(this, Observer<List<DataClasses.Breed>> { breeds ->
             breeds?.let {
-                if (it.isEmpty()) {
+                adapter.setItems(it)
+            }
+        })
+
+        listViewModel.getDataStateLiveData().observe(this, Observer { state ->
+            state.let {
+                if (it.isFailed){
                     activityMainBinding.errorView.visibility = View.VISIBLE
-                } else {
-                    adapter.setItems(it)
                 }
             }
         })

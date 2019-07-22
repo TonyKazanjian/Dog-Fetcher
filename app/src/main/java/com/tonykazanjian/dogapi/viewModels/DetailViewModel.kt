@@ -11,8 +11,6 @@ import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
-import com.tonykazanjian.dogapi.network.Result
-import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package com.tonykazanjian.dogapi.viewModels
 
-import android.provider.Contacts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,10 +8,7 @@ import com.google.gson.Gson
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
-import com.tonykazanjian.dogapi.network.Result
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -24,6 +20,10 @@ class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
 
     private val breedList = mutableListOf<DataClasses.Breed>()
 
+    val dataStateLiveData: MutableLiveData<DataClasses.DataState> by lazy {
+        MutableLiveData<DataClasses.DataState>()
+    }
+
     private val breedsLiveData: MutableLiveData<List<DataClasses.Breed>> by lazy {
         MutableLiveData<List<DataClasses.Breed>>().also {
             loadBreeds()
@@ -32,6 +32,10 @@ class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
 
     fun getBreedsLiveData(): LiveData<List<DataClasses.Breed>> {
         return breedsLiveData
+    }
+
+    fun getDataStateLiveData(): LiveData<DataClasses.DataState> {
+        return dataStateLiveData
     }
 
     private fun loadBreeds() {
@@ -45,6 +49,7 @@ class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
                 breedList.add(DataClasses.Breed(breedName, subBreedList))
             }
 
+            dataStateLiveData.value = DataClasses.DataState(breedList.isEmpty())
             breedsLiveData.postValue(breedList)
         }
     }
