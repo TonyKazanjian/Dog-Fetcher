@@ -30,6 +30,7 @@ class SubBreedImageFragment: BaseFragment() {
         val binding: FragmentSubbreedImagesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_subbreed_images, container, false)
         val imageAdapter = initViewPager(binding)
         initViewModel(binding, imageAdapter)
+        binding.rootLayout.setOnClickListener { view ->  activity!!.onBackPressed()}
 
         return binding.root
     }
