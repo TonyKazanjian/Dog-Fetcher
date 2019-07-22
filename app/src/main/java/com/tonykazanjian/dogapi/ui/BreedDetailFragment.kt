@@ -8,9 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tonykazanjian.dogapi.NavigationUtils
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.databinding.FragmentDetailBinding
+import com.tonykazanjian.dogapi.ui.adapters.BaseListAdapter
+import com.tonykazanjian.dogapi.ui.adapters.BreedImageAdapter
+import com.tonykazanjian.dogapi.ui.adapters.SubBreedAdapter
 import com.tonykazanjian.dogapi.viewModels.DetailViewModel
 
 /**
@@ -30,21 +34,28 @@ class BreedDetailFragment: BaseFragment(), BaseListAdapter.OnBreedClickListener 
     private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
-        val recyclerView = binding.subBreedRecyclerView
-        val subBreedAdapter = SubBreedAdapter(this)
 
-        recyclerView.adapter = subBreedAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        initSubBreedRecyclerView()
+        val imageAdapter = initViewPager()
+        initViewModel(binding, imageAdapter)
 
+        return binding.root
+    }
+
+    private fun initViewPager(): BreedImageAdapter {
         val viewPager = binding.viewPager
         val imageAdapter = BreedImageAdapter(context)
         viewPager.adapter = imageAdapter
+        return imageAdapter
+    }
 
-        initViewModel(binding, imageAdapter)
+    private fun initSubBreedRecyclerView() {
+        val recyclerView = binding.subBreedRecyclerView
+        val subBreedAdapter = SubBreedAdapter(this)
+        recyclerView.adapter = subBreedAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
         setBreedInfoToAdapter(subBreedAdapter)
-        return binding.root
     }
 
     private fun initViewModel(fragmentDetailBinding: FragmentDetailBinding, adapter: BreedImageAdapter) {
@@ -66,18 +77,20 @@ class BreedDetailFragment: BaseFragment(), BaseListAdapter.OnBreedClickListener 
     private fun getBreedFromArgs() : DataClasses.Breed {
         val breed: DataClasses.Breed
         val args = arguments
-        breed = args?.get(Navigator.BREED_KEY) as DataClasses.Breed
+        breed = args?.get(NavigationUtils.BREED_KEY) as DataClasses.Breed
         return breed
     }
-
 
     override fun onBreedClicked(item: Any?) {
         val fragmentManager = fragmentManager
         val args = Bundle()
-        args.putString(Navigator.SUB_BREED_KEY, item as String?)
-        args.putParcelable(Navigator.BREED_KEY, detailViewModel.breed)
+
+        args.putString(NavigationUtils.SUB_BREED_KEY, item as String?)
+        args.putParcelable(NavigationUtils.BREED_KEY, detailViewModel.breed)
+
         val fragment =  SubBreedImageFragment.newInstance()
         fragment.arguments = args
+
         val ft = fragmentManager!!.beginTransaction()
         ft.add(binding.root.id, fragment, SubBreedImageFragment.TAG)
         ft.addToBackStack(SubBreedImageFragment.TAG)

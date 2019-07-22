@@ -1,4 +1,4 @@
-package com.tonykazanjian.dogapi.ui
+package com.tonykazanjian.dogapi.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.databinding.BreedItemBinding
-import com.tonykazanjian.dogapi.viewModels.BaseViewModel
+import com.tonykazanjian.dogapi.viewModels.BaseBreedViewModel
 
 /**
  * @author Tony Kazanjian
@@ -23,7 +23,7 @@ open class BaseListAdapter<T> (open var clickListener: OnBreedClickListener? = n
         return initViewHolder(binding, clickListener)
     }
 
-    open fun initViewHolder(binding: BreedItemBinding, clickListener: OnBreedClickListener?): ViewHolder<T>{
+    open fun initViewHolder(binding: BreedItemBinding, clickListener: OnBreedClickListener?): ViewHolder<T> {
         return ViewHolder(binding, clickListener)
     }
 
@@ -52,6 +52,6 @@ open class BaseListAdapter<T> (open var clickListener: OnBreedClickListener? = n
             itemView.setOnClickListener{ clickListener?.onBreedClicked(item)}
         }
 
-        open fun createViewModel(item: T) = BaseViewModel(item)
+        open fun createViewModel(item: T) = BaseBreedViewModel(item)
     }
 }

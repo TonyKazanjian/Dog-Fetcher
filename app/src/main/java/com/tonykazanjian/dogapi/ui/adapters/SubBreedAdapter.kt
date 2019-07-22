@@ -1,7 +1,7 @@
-package com.tonykazanjian.dogapi.ui
+package com.tonykazanjian.dogapi.ui.adapters
 
 import com.tonykazanjian.dogapi.databinding.BreedItemBinding
-import com.tonykazanjian.dogapi.viewModels.BaseViewModel
+import com.tonykazanjian.dogapi.viewModels.BaseBreedViewModel
 import com.tonykazanjian.dogapi.viewModels.SubBreedViewModel
 
 /**
@@ -18,7 +18,7 @@ class SubBreedAdapter(override var clickListener: OnBreedClickListener? = null):
     class BreedViewHolder(override var binding: BreedItemBinding, override var clickListener: OnBreedClickListener?):
         ViewHolder<String>(binding, clickListener){
 
-        override fun createViewModel(item: String): BaseViewModel<String> {
+        override fun createViewModel(item: String): BaseBreedViewModel<String> {
             return SubBreedViewModel(item)
         }
     }

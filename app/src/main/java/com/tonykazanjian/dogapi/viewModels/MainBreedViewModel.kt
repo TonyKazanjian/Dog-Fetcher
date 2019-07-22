@@ -5,6 +5,6 @@ import com.tonykazanjian.dogapi.data.DataClasses
 /**
  * @author Tony Kazanjian
  */
-class BreedViewModel(breed: DataClasses.Breed) : BaseViewModel<DataClasses.Breed>(breed) {
+class MainBreedViewModel(breed: DataClasses.Breed) : BaseBreedViewModel<DataClasses.Breed>(breed) {
     override var name = breed.name
 }

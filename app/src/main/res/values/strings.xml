@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">DogAPI</string>
-    <string name="subBreedText">The sub breeds of %1$s are: </string>
+    <string name="subBreedText">Click one to see pictures of %1$s sub breeds.</string>
     <string name="noSubBreedText">There are no sub breeds of %1$s.</string>
+    <string name="errorMessage">It looks like something went wrong.\nPlease try again later.</string>
+    <string name="dogApiWelcome">Welcome to Dog API. Check out these dogs! Click one to see pics and more info!</string>
 </resources>

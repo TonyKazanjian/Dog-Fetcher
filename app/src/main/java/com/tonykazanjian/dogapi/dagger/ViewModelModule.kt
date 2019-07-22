@@ -2,7 +2,6 @@ package com.tonykazanjian.dogapi.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tonykazanjian.dogapi.viewModels.BaseViewModel
 import com.tonykazanjian.dogapi.viewModels.DetailViewModel
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
 import com.tonykazanjian.dogapi.viewModels.SubBreedImageViewModel

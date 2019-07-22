@@ -1,4 +1,4 @@
-package com.tonykazanjian.dogapi.ui
+package com.tonykazanjian.dogapi.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

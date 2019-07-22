@@ -1,5 +1,6 @@
 package com.tonykazanjian.dogapi.viewModels
 
+import android.provider.Contacts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,10 @@ import com.google.gson.Gson
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
+import com.tonykazanjian.dogapi.network.Result
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -40,6 +44,7 @@ class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
                 val subBreedList = gson.fromJson(subBreedArray, Array<String>::class.java).toList()
                 breedList.add(DataClasses.Breed(breedName, subBreedList))
             }
+
             breedsLiveData.postValue(breedList)
         }
     }
