@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
@@ -17,9 +18,9 @@ import javax.inject.Inject
 /**
  * @author Tony Kazanjian
  */
-class DetailViewModel @Inject constructor(api: DogApi, private val context: Context): ViewModel() {
+open class DetailViewModel @Inject constructor(api: DogApi, private val context: Context): ViewModel() {
 
-    private val repository : DogRepository = DogRepository(api)
+    protected val repository : DogRepository = DogRepository(api)
 
     var urlList = mutableListOf<String>()
 
@@ -31,7 +32,7 @@ class DetailViewModel @Inject constructor(api: DogApi, private val context: Cont
         }
     }
 
-    fun getImageUrlLiveData(): LiveData<List<String>> {
+    open fun getImageUrlLiveData(): LiveData<List<String>> {
         return urlLiveData
     }
 
@@ -42,13 +43,22 @@ class DetailViewModel @Inject constructor(api: DogApi, private val context: Cont
         return context.getString(R.string.subBreedText, breed.name)
     }
 
-    private fun loadImageUrls(){
+    fun loadImageUrls(){
         viewModelScope.launch {
-            val jsonArray = repository.getBreedImages(breed.name)
-            val gson = Gson()
-            val imageList = gson.fromJson(jsonArray, Array<String>::class.java).toList()
-            urlList.addAll(imageList)
-            urlLiveData.postValue(urlList)
+            val jsonArray = getImageResponse()
+            postUrls(jsonArray)
         }
+    }
+
+    open suspend fun getImageResponse(): JsonArray? {
+        val jsonArray = repository.getBreedImages(breed.name)
+        return jsonArray
+    }
+
+    private fun postUrls(jsonArray: JsonArray?) {
+        val gson = Gson()
+        val imageList = gson.fromJson(jsonArray, Array<String>::class.java).toList()
+        urlList.addAll(imageList)
+        urlLiveData.postValue(urlList)
     }
 }

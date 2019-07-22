@@ -10,11 +10,6 @@ class Navigator {
 
     companion object{
         const val BREED_KEY = "BREED_KEY"
-    }
-
-    fun showBreedDetails(activity: BaseActivity, breed: DataClasses.Breed){
-        val fragmentManager = activity.supportFragmentManager
-        val args = Bundle()
-        args.putParcelable(BREED_KEY, breed)
+        const val SUB_BREED_KEY = "SUB_BREED_KEY"
     }
 }

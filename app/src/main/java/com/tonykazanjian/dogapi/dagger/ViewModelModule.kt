@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tonykazanjian.dogapi.viewModels.BaseViewModel
 import com.tonykazanjian.dogapi.viewModels.DetailViewModel
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
+import com.tonykazanjian.dogapi.viewModels.SubBreedImageViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -27,4 +28,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     abstract fun bindDetailViewModel(detailViewModel: DetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SubBreedImageViewModel::class)
+    abstract fun bindSubBreedImageViewModel(subBreedImageViewModel: SubBreedImageViewModel): ViewModel
 }
