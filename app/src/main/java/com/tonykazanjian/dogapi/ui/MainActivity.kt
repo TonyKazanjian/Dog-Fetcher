@@ -1,6 +1,7 @@
 package com.tonykazanjian.dogapi.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,7 +15,7 @@ import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.databinding.ActivityMainBinding
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
 
-class MainActivity : BaseActivity(), BreedsListAdapter.OnBreedClickListener {
+class MainActivity : BaseActivity(), BaseListAdapter.OnBreedClickListener {
 
     private lateinit var listViewModel: ListViewModel
     private lateinit var activityMainBinding: ActivityMainBinding
@@ -36,21 +37,32 @@ class MainActivity : BaseActivity(), BreedsListAdapter.OnBreedClickListener {
         activityMainBinding.viewModel = listViewModel
 
         listViewModel.getBreedsLiveData().observe(this, Observer<List<DataClasses.Breed>>{ breeds ->
-            breeds?.let { adapter.setBreeds(it) }
+            breeds?.let { adapter.setItems(it) }
         })
 
         (application as DogApplication).appComponent.inject(this)
     }
 
-    override fun onBreedClicked(breed: DataClasses.Breed) {
+//    override fun onBreedClicked(breed: DataClasses.Breed) {
+//        val fragmentManager = supportFragmentManager
+//        val args = Bundle()
+//        args.putParcelable(Navigator.BREED_KEY, breed)
+//        val fragment =  BreedDetailFragment.newInstance()
+//        fragment.arguments = args
+//        val ft = fragmentManager.beginTransaction()
+//        ft.add(activityMainBinding.root.id, fragment, BreedDetailFragment.TAG)
+//        ft.addToBackStack(BreedDetailFragment.TAG)
+//        ft.commit()
+//    }
+
+    override fun onBreedClicked(item: Any?) {
         val fragmentManager = supportFragmentManager
         val args = Bundle()
-        args.putParcelable(Navigator.BREED_KEY, breed)
+        args.putParcelable(Navigator.BREED_KEY, item as Parcelable?)
         val fragment =  BreedDetailFragment.newInstance()
         fragment.arguments = args
         val ft = fragmentManager.beginTransaction()
         ft.add(activityMainBinding.root.id, fragment, BreedDetailFragment.TAG)
         ft.addToBackStack(BreedDetailFragment.TAG)
-        ft.commit()
-    }
+        ft.commit()    }
 }

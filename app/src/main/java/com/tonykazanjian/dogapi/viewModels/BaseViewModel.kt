@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 /**
  * @author Tony Kazanjian
  */
-abstract class BaseViewModel : ViewModel() {
+open class BaseViewModel<T>(item: T) : ViewModel() {
+
+    open var name = item.toString()
 
 //    var result: MutableLiveData<Result> = MutableLiveData()
 //

@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.tonykazanjian.dogapi.viewModels.ItemViewModel" />
+                type="com.tonykazanjian.dogapi.viewModels.BaseViewModel" />
     </data>
 
     <LinearLayout

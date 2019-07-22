@@ -3,6 +3,7 @@ package com.tonykazanjian.dogapi.viewModels
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.tonykazanjian.dogapi.R
@@ -16,7 +17,7 @@ import javax.inject.Inject
 /**
  * @author Tony Kazanjian
  */
-class DetailViewModel @Inject constructor(api: DogApi, private val context: Context): BaseViewModel() {
+class DetailViewModel @Inject constructor(api: DogApi, private val context: Context): ViewModel() {
 
     private val repository : DogRepository = DogRepository(api)
 
@@ -46,7 +47,5 @@ class DetailViewModel @Inject constructor(api: DogApi, private val context: Cont
             urlList.addAll(imageList)
             urlLiveData.postValue(urlList)
         }
-
     }
-
 }

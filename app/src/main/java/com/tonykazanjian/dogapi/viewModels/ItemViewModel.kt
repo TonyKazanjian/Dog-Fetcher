@@ -6,6 +6,6 @@ import com.tonykazanjian.dogapi.data.DataClasses
 /**
  * @author Tony Kazanjian
  */
-class ItemViewModel(breed: DataClasses.Breed) : BaseViewModel(){
-    var name = breed.name
+class ItemViewModel(breed: DataClasses.Breed) : BaseViewModel<DataClasses.Breed>(breed) {
+    override var name = breed.name
 }

@@ -7,44 +7,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.databinding.BreedItemBinding
+import com.tonykazanjian.dogapi.viewModels.BaseViewModel
 import com.tonykazanjian.dogapi.viewModels.ItemViewModel
 
 /**
  * @author Tony Kazanjian
  */
-class BreedsListAdapter(var clickListener: OnBreedClickListener? = null): RecyclerView.Adapter<BreedsListAdapter.ViewHolder>() {
+class BreedsListAdapter(override var clickListener: OnBreedClickListener? = null) : BaseListAdapter<DataClasses.Breed>() {
 
-    var breedsList = listOf<DataClasses.Breed>()
+    override var list: List<DataClasses.Breed> = listOf()
 
-    interface OnBreedClickListener {
-        fun onBreedClicked(breed: DataClasses.Breed)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding: BreedItemBinding = DataBindingUtil.inflate(inflater, R.layout.breed_item, parent, false)
-        return ViewHolder(binding, clickListener)
+    override fun initViewHolder(binding: BreedItemBinding, clickListener: OnBreedClickListener?): ViewHolder<DataClasses.Breed> {
+        return BreedViewHolder(binding, clickListener)
     }
 
     override fun getItemCount(): Int {
-        return breedsList.size
+        return list.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(breedsList[position])
-    }
+    class BreedViewHolder(override var binding: BreedItemBinding, override var clickListener: OnBreedClickListener?):
+        ViewHolder<DataClasses.Breed>(binding, clickListener){
 
-    internal fun setBreeds(breeds: List<DataClasses.Breed>) {
-        this.breedsList = breeds
-        notifyDataSetChanged()
-    }
-
-    class ViewHolder(val binding: BreedItemBinding, val clickListener: OnBreedClickListener?) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(breed: DataClasses.Breed) {
-            val itemViewModel = ItemViewModel(breed)
-            binding.viewModel = itemViewModel
-            itemView.setOnClickListener{ clickListener?.onBreedClicked(breed)}
+        override fun baseViewModel(item: DataClasses.Breed): BaseViewModel<DataClasses.Breed> {
+            return ItemViewModel(item)
         }
     }
 }

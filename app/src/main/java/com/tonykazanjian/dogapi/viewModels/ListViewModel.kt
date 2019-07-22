@@ -3,6 +3,7 @@ package com.tonykazanjian.dogapi.viewModels
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.tonykazanjian.dogapi.data.DataClasses
@@ -14,7 +15,7 @@ import javax.inject.Inject
 /**
  * @author Tony Kazanjian
  */
-class ListViewModel @Inject constructor(api: DogApi): BaseViewModel() {
+class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
 
     private val repository : DogRepository = DogRepository(api)
 
