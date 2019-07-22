@@ -15,7 +15,10 @@ import retrofit2.http.Path
 interface DogApi {
 
     @GET(value = "${ApiUtils.SINGLE_BREED}/{breed}/${ApiUtils.IMAGES}")
-    fun getDogImages(@Path("breed") breed: String): Deferred<Response<DataClasses.DogApiImageResponse>>
+    fun getBreedImages(@Path("breed") breed: String): Deferred<Response<DataClasses.DogApiImageResponse>>
+
+    @GET(value = "${ApiUtils.SINGLE_BREED}/{breed}/{sbreed}/${ApiUtils.IMAGES}")
+    fun getSubBreedImages(@Path("breed") breed: String, @Path("sbreed") sBreed: String): Deferred<Response<DataClasses.DogApiImageResponse>>
 
     @GET(value = ApiUtils.ALL_BREEDS)
     fun getAllDogBreeds(): Deferred<Response<DataClasses.DogApiResponse>>

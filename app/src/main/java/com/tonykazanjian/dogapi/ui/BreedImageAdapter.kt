@@ -13,7 +13,7 @@ import com.tonykazanjian.dogapi.databinding.BreedImageBinding
 /**
  * @author Tony Kazanjian
  */
-class BreedImageAdapter(private val context: Context): PagerAdapter() {
+class BreedImageAdapter(private val context: Context?): PagerAdapter() {
 
     var imageList = listOf<String>()
 

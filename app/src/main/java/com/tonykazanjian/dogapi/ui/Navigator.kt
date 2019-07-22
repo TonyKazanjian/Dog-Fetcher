@@ -1,12 +1,20 @@
 package com.tonykazanjian.dogapi.ui
 
-import javax.inject.Singleton
+import android.os.Bundle
+import com.tonykazanjian.dogapi.data.DataClasses
 
 /**
  * @author Tony Kazanjian
  */
-@Singleton
 class Navigator {
 
-    //show breed details here
+    companion object{
+        const val BREED_KEY = "BREED_KEY"
+    }
+
+    fun showBreedDetails(activity: BaseActivity, breed: DataClasses.Breed){
+        val fragmentManager = activity.supportFragmentManager
+        val args = Bundle()
+        args.putParcelable(BREED_KEY, breed)
+    }
 }

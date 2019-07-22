@@ -13,16 +13,22 @@ class DogRepository(private val api: DogApi) : BaseRepository() {
             call = {api.getAllDogBreeds().await()},
             errorMessage = "Error fetching dog breeds"
         )
-
         return dogResponse?.result
     }
 
     suspend fun getBreedImages(breed: String): JsonArray? {
         val imageResponse = safeApiCall(
-            call = {api.getDogImages(breed).await()},
-            errorMessage = "Error fetching dog images"
+            call = {api.getBreedImages(breed).await()},
+            errorMessage = "Error fetching breed images"
         )
+        return imageResponse?.result
+    }
 
+    suspend fun getSubBreedImages(breed: String, subBreed: String): JsonArray? {
+        val imageResponse = safeApiCall(
+            call = {api.getSubBreedImages(breed, subBreed).await()},
+            errorMessage = "Error fetching sub breed images"
+        )
         return imageResponse?.result
     }
 }

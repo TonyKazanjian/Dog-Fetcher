@@ -1,7 +1,7 @@
 package com.tonykazanjian.dogapi.dagger
 
 import com.tonykazanjian.dogapi.DogApplication
-import com.tonykazanjian.dogapi.ui.DetailActivity
+import com.tonykazanjian.dogapi.ui.BreedDetailFragment
 import com.tonykazanjian.dogapi.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -15,5 +15,5 @@ interface AppComponent {
 
     fun inject(application: DogApplication)
     fun inject(target: MainActivity)
-    fun inject(target: DetailActivity)
+    fun inject(target: BreedDetailFragment)
 }

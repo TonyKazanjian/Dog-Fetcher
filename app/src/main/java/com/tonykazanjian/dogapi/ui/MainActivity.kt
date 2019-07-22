@@ -7,26 +7,28 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tonykazanjian.dogapi.DogApplication
 import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.databinding.ActivityMainBinding
 import com.tonykazanjian.dogapi.viewModels.ListViewModel
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), BreedsListAdapter.OnBreedClickListener {
 
     private lateinit var listViewModel: ListViewModel
+    private lateinit var activityMainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
-        val activityMainBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val recyclerView = activityMainBinding.breedRecyclerView
-        val adapter = BreedsListAdapter()
+        val adapter = BreedsListAdapter(this)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+        recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL) as RecyclerView.ItemDecoration)
 
         activityMainBinding.lifecycleOwner = this
 
@@ -34,10 +36,21 @@ class MainActivity : BaseActivity() {
         activityMainBinding.viewModel = listViewModel
 
         listViewModel.getBreedsLiveData().observe(this, Observer<List<DataClasses.Breed>>{ breeds ->
-
             breeds?.let { adapter.setBreeds(it) }
         })
 
         (application as DogApplication).appComponent.inject(this)
+    }
+
+    override fun onBreedClicked(breed: DataClasses.Breed) {
+        val fragmentManager = supportFragmentManager
+        val args = Bundle()
+        args.putParcelable(Navigator.BREED_KEY, breed)
+        val fragment =  BreedDetailFragment.newInstance()
+        fragment.arguments = args
+        val ft = fragmentManager.beginTransaction()
+        ft.add(activityMainBinding.root.id, fragment, BreedDetailFragment.TAG)
+        ft.addToBackStack(BreedDetailFragment.TAG)
+        ft.commit()
     }
 }

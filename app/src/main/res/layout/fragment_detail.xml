@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/detailBackground">
 
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
@@ -24,6 +25,7 @@
                 style="@style/breed_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.subBreedListTitle()}"
                 android:padding="5dp"
                 app:layout_constraintTop_toTopOf="@id/guideline"
                 app:layout_constraintBottom_toTopOf="@id/subBreed_recyclerView"/>

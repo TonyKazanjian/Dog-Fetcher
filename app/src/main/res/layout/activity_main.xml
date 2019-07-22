@@ -9,6 +9,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -16,6 +17,12 @@
                 android:id="@+id/breed_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+        <!--<fragment-->
+                <!--android:id="@+id/details_fragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--class="com.tonykazanjian.dogapi.ui.BreedDetailFragment"/>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
