@@ -8,15 +8,14 @@ import com.google.gson.Gson
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
+import com.tonykazanjian.dogapi.network.DogRepositoryImpl
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * @author Tony Kazanjian
  */
-class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
-
-    private val repository : DogRepository = DogRepository(api)
+class ListViewModel @Inject constructor(private val dogRepository: DogRepositoryImpl): ViewModel() {
 
     private val breedList = mutableListOf<DataClasses.Breed>()
 
@@ -40,7 +39,7 @@ class ListViewModel @Inject constructor(api: DogApi): ViewModel() {
 
     private fun loadBreeds() {
         viewModelScope.launch {
-            val breeds = repository.getDogList()
+            val breeds = dogRepository.getDogList()
             breeds?.entrySet()?.map {
                 val breedName = it.key
                 val subBreedArray = it.value.asJsonArray

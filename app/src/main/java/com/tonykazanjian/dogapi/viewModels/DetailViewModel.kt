@@ -11,16 +11,16 @@ import com.tonykazanjian.dogapi.R
 import com.tonykazanjian.dogapi.data.DataClasses
 import com.tonykazanjian.dogapi.network.DogApi
 import com.tonykazanjian.dogapi.network.DogRepository
+import com.tonykazanjian.dogapi.network.DogRepositoryImpl
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
  * @author Tony Kazanjian
  */
-open class DetailViewModel @Inject constructor(api: DogApi,
+open class DetailViewModel @Inject constructor(private val dogRepository: DogRepositoryImpl,
                                                private val context: Context): ViewModel() {
 
-    protected val repository : DogRepository = DogRepository(api)
 
     var urlList = mutableListOf<String>()
 
@@ -51,7 +51,7 @@ open class DetailViewModel @Inject constructor(api: DogApi,
     }
 
     open suspend fun getImageResponse(): JsonArray? {
-        val jsonArray = repository.getBreedImages(breed.name)
+        val jsonArray = dogRepository.getBreedImages(breed.name)
         return jsonArray
     }
 
